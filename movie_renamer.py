@@ -1,7 +1,7 @@
 import os
 import re
 
-extensions_to_delete = ('.nfo', '.txt', '.jpg', '.srt', '.url', '.srr')
+extensions_to_delete = ('.nfo', '.txt', '.jpg', '.srt', '.url', '.srr', '.png', '.nzb', '.docx')
 title_parser = re.compile(r'(?P<title>[\w,.\-!\s]+)(?P<year>(?:(?:20)|(?:19))\d{2})')
 
 
@@ -13,11 +13,11 @@ def file_walker(path_to_craw):
                     os.remove(os.path.join(root, file))
                 else:
                     title_year = rephraser(folders)
-                    folder_name = title_year[0].rstrip() + ' ' + title_year[1]
                     movie_name = title_year[0].rstrip() + file[-4:]
                     movie_path = os.path.join(root, movie_name)
                     os.rename(os.path.join(root, file), movie_path)
-                    os.rename(root, os.path.join(path_to_craw, folder_name))
+            folder_name = title_year[0].rstrip() + ' ' + title_year[1]
+            os.rename(root, os.path.join(path_to_craw, folder_name))
 
 
 def rephraser(phrase):
@@ -30,4 +30,5 @@ def rephraser(phrase):
     return title, year
 
 
-file_walker(r'C:\Users\Tom\Documents\Python_Projects\movie_renamer\test_files')
+if __name__ == '__main__':
+    file_walker(r'D:\complete\Movies')
