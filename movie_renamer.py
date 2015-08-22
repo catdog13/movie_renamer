@@ -1,7 +1,7 @@
 import os
 import re
 
-extensions_to_delete = ('.nfo', '.txt', '.jpg', '.srt', '.url', '.srr', '.png', '.nzb', '.docx')
+extensions_to_keep = ('.mp4', '.mkv', '.img', '.iso', '.wmv', '.avi', '.mov', '.m4v')
 title_parser = re.compile(r'(?P<title>[\w,.\-!\s]+)(?P<year>(?:(?:20)|(?:19))\d{2})')
 
 
@@ -9,7 +9,7 @@ def file_walker(path_to_craw):
     for folders in os.listdir(path_to_craw):
         for root, subdir, files in os.walk(os.path.join(path_to_craw, folders)):
             for file in files:
-                if file.endswith(extensions_to_delete) or 'sample' in file:
+                if not file.endswith(extensions_to_keep) or 'sample' in file:
                     os.remove(os.path.join(root, file))
                 else:
                     title_year = rephraser(folders)
