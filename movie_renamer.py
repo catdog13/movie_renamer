@@ -21,11 +21,9 @@ def file_walker(path_to_craw):
 
 
 def rephraser(phrase):
-    old_name = phrase
-    new_name_space = old_name.replace('.', ' ')
-    new_name_clean = re.sub('[^\w ]', '', new_name_space)
-    title_data = title_parser.match(new_name_clean)
-    title = title_data.group(1)
+    name_clean = re.sub('[^\w ]', '', phrase.replace('.', ' '))
+    title_data = title_parser.match(name_clean)
+    title = title_data.group(1).rstrip()
     year = '(' + title_data.group(2) + ')'
     return title, year
 
